@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "easepy"
+version = "0.1.0"
+description = "Python package for working with EASE grids."
+authors = ["Karl Nordstrom <karl.am.nordstrom@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "^1.22.2"
+pyproj = "^3.3.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+testpaths=[
+    "tests"
+]
+markers =[
+    "unit: Unit tests.",
+]
