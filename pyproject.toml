@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "easepy"
-version = "0.1.0"
+version = "0.2.0"
 description = "Python package for working with EASE grids."
 authors = ["Karl Nordstrom <karl.am.nordstrom@gmail.com>"]
 license = "MIT"
