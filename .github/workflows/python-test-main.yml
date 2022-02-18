@@ -1,6 +1,6 @@
 # This workflow will install Python dependencies and run tests using poetry, and run linting with flake8
 
-name: Python testing
+name: Test status of main branch
 
 on:
   push:
