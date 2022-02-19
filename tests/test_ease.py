@@ -80,15 +80,13 @@ class TestEasepy(TestCase):
     @pytest.mark.unit
     def test_ease_raises_resolution_value_error(self):
         with pytest.raises(Exception) as e_info:
-            ease = EaseGrid(11000, "SouthHemi")
-            ease.geodetic2ease(50, 100)
+            EaseGrid(11000, "SouthHemi")
         self.assertEqual(e_info.type, ValueError)
 
     @pytest.mark.unit
     def test_ease_raises_projection_value_error(self):
         with pytest.raises(Exception) as e_info:
-            ease = EaseGrid(12000, "SH")
-            ease.geodetic2ease(50, 100)
+            EaseGrid(12000, "SH")
         self.assertEqual(e_info.type, ValueError)
 
     @pytest.mark.unit
