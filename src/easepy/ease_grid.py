@@ -10,18 +10,23 @@ logger = logging.getLogger(__name__)
 class EaseGrid(object):
     """
     EASE Grid class
+
     The Equal Area Scaleable Earth (EASE) grid is an equal area grid for earth
     observation data. It has three different projections:
-        * Northern Hemisphere
-        * Southern Hemisphere
-        * Global (not defined for |lat| > 84 degrees)
-    The EASE grid is defined using a two-dimensional coordinate system. We denote these
-    dimensions x and y in this code. These are defined in such a way that
+
+    * Northern Hemisphere
+    * Southern Hemisphere
+    * Global (not defined for abs(lat) > 84 degrees)
+
+    The EASE grid is defined using a two-dimensional coordinate system. The coordinates are referred to
+    as the x and y coordinates in this package. They are defined in such a way that
     a regular grid in this coordinate system produces a high-quality equal area grid within
     the region of validity. The EASE grid indices (here denoted col_ix, row_iy)
     are therefore determined as follows:
-        * Convert geodetic coordinate to requested EASE coordinate system
-        * Determine grid indices in the x and y coordinates using a regular grid
+
+    * Convert geodetic coordinate to requested EASE coordinate system
+    * Determine grid indices in the x and y coordinates using a regular grid
+
     Due to this procedure, there is some ambiguity in what we mean by conversion functions
     such as geodetic2ease and ease2geodetic: is the user requesting a conversion to the
     EASE coordinate system (or back), or are they working with grid indices?
@@ -30,13 +35,24 @@ class EaseGrid(object):
     EASE grids, but the EASE coordinates have to be calculated as part of this, and it is therefore
     unnecessary to maintain separate functions.
     When converting back to geodetic, two functions are instead provided:
-        * ease_coord2geodetic
-        * ease_index2geodetic
+
+    * ease_coord2geodetic
+    * ease_index2geodetic
+
     These convert EASE coordinates back to geodetic (always correct, regardless of the setup of the grid,
     as long as the same projection is used) or the EASE grid index back to geodetic (only correct
     if the current grid is set up with the same projection AND resolution).
     Description and further info: https://nsidc.org/ease/ease-grid-projection-gt
+
     Values are assumed to be in meters and degrees.
+
+    Parameters
+    ----------
+    resolution_m : int
+        Grid resolution in meters
+    projection : str
+        Grid projection to be used (NorthHemi, SouthHemi, or Global)
+
     """
 
     def __init__(self, resolution_m: int, projection: str) -> None:
@@ -125,6 +141,7 @@ class EaseGrid(object):
     ]:
         """
         Function to find corresponding EASE coordinates and grid index for given lat/lon point
+
         Parameters
         ----------
         lat : np.ndarray
@@ -168,6 +185,7 @@ class EaseGrid(object):
         """
         Function to find corresponding lat/lon point for given EASE point.
         Valid as long as the projection used is consistent.
+
         Parameters
         ----------
         xx : np.ndarray
@@ -191,6 +209,7 @@ class EaseGrid(object):
         Function to find corresponding lat/lon point for given EASE grid index pair
         Valid only if the projection and resolution used are the same.
         Returns the location of the approximate midpoint of the grid cell.
+
         Parameters
         ----------
         col_ix : np.ndarray
