@@ -27,5 +27,4 @@ jobs:
       - name: Run pytest in poetry
         run: |
           poetry install
-          pip install pytest-cov
           poetry run pytest --cov --cov-report xml
