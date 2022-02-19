@@ -99,6 +99,13 @@ class TestEasepy(TestCase):
         self.assertEqual(e_info.type, ValueError)
 
     @pytest.mark.unit
+    def test_ease_raises_longitude_value_error(self):
+        with pytest.raises(Exception) as e_info:
+            ease = EaseGrid(12000, "SouthHemi")
+            ease.geodetic2ease(-45, 600)
+        self.assertEqual(e_info.type, ValueError)
+
+    @pytest.mark.unit
     def test_ease_north_hemi_ease_coord2geodetic(self):
         ease = EaseGrid(12000, "NorthHemi")
         yy = -554117.0849300659

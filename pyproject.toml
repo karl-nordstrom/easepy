@@ -2,7 +2,10 @@
 name = "easepy"
 version = "0.2.0"
 description = "Python package for working with EASE grids."
-authors = ["Karl Nordstrom <karl.am.nordstrom@gmail.com>"]
+authors = [
+  "Karl Nordstrom <karl.am.nordstrom@gmail.com>",
+  "Giorgio Savastano <giorgiosavastano@gmail.com>"
+]
 license = "MIT"
 
 [tool.poetry.dependencies]
