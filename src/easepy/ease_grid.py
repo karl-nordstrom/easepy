@@ -11,20 +11,20 @@ class EaseGrid(object):
     """
     EASE Grid class
 
-    The Equal Area Scaleable Earth (EASE) grid is an equal area grid for earth
-    observation data. It has three different projections:
+    The Equal Area Scaleable Earth (EASE2.0) grids are equal area grids for earth
+    observation data. There are three different projections:
 
     * Northern Hemisphere
     * Southern Hemisphere
     * Global (not defined for abs(lat) > 84 degrees)
 
-    The EASE grid is defined using a two-dimensional coordinate system. The coordinates are referred to
+    The EASE2.0 grids are defined using two-dimensional coordinate systems. The coordinates are referred to
     as the x and y coordinates in this package. They are defined in such a way that
-    a regular grid in this coordinate system produces a high-quality equal area grid within
-    the region of validity. The EASE grid indices (here denoted col_ix, row_iy)
+    a regular grid produces a high-quality equal area grid within
+    the region of validity. The EASE2.0 grid indices (here denoted col_ix, row_iy)
     are therefore determined as follows:
 
-    * Convert geodetic coordinate to requested EASE coordinate system
+    * Convert geodetic coordinate to requested EASE2.0 coordinate system
     * Determine grid indices in the x and y coordinates using a regular grid
 
     Due to this procedure, there is some ambiguity in what we mean by conversion functions
@@ -39,8 +39,8 @@ class EaseGrid(object):
     * ease_coord2geodetic
     * ease_index2geodetic
 
-    These convert EASE coordinates back to geodetic (always correct, regardless of the setup of the grid,
-    as long as the same projection is used) or the EASE grid index back to geodetic (only correct
+    These convert EASE2.0 coordinates back to geodetic (always correct, regardless of the setup of the grid,
+    as long as the same projection is used) or the EASE2.0 grid index back to geodetic (only correct
     if the current grid is set up with the same projection AND resolution).
     Description and further info: https://nsidc.org/ease/ease-grid-projection-gt
 
