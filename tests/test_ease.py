@@ -1,12 +1,16 @@
+import os
 from pathlib import Path
 from unittest import TestCase
 
 import numpy as np
 import pytest
+import s3fs
+import zarr
 
 from easepy import EaseGrid
 
 path = Path(__file__)
+BASE_FILE_LOCATION = "s3://public-test-data/easepy/"
 
 
 class TestEasepy(TestCase):
@@ -75,12 +79,6 @@ class TestEasepy(TestCase):
             lats = 89
             lons = 180
             (x_ind, y_ind), (x, y) = ease.geodetic2ease(lats, lons)
-        self.assertEqual(e_info.type, ValueError)
-
-    @pytest.mark.unit
-    def test_ease_raises_resolution_value_error(self):
-        with pytest.raises(Exception) as e_info:
-            EaseGrid(11000, "SouthHemi")
         self.assertEqual(e_info.type, ValueError)
 
     @pytest.mark.unit
@@ -176,6 +174,50 @@ class TestEasepy(TestCase):
         (x_ind, y_ind), (x, y) = ease_obj.geodetic2ease(lat=lats, lon=lons)
         self.assertEqual(264, x_ind)
         self.assertEqual(723, y_ind)
+
+    @pytest.mark.unit
+    def test_ease_grid_agreement_36km(self):
+        fs = s3fs.S3FileSystem(anon=True)
+        # These files contain expected geodetic global grid centroids for a
+        # resolution of 36 km. Based on ftp://sidads.colorado.edu/pub/tools/easegrid/
+        data_lat = zarr.open(
+            s3fs.S3Map(
+                os.path.join(BASE_FILE_LOCATION, "EASE2_M36km.lats.964x406x1.zarr"),
+                s3=fs,
+            )
+        )[:].reshape((406, 964))
+        data_lon = zarr.open(
+            s3fs.S3Map(
+                os.path.join(BASE_FILE_LOCATION, "EASE2_M36km.lons.964x406x1.zarr"),
+                s3=fs,
+            )
+        )[:].reshape((406, 964))
+        ease = EaseGrid(resolution_m=36000, projection="Global")
+        grid_lats, grid_lons = ease.geodetic_grid
+        self.assertTrue(np.isclose(data_lat, grid_lats).all())
+        self.assertTrue(np.isclose(data_lon, grid_lons).all())
+
+    @pytest.mark.unit
+    def test_ease_grid_agreement_25km(self):
+        fs = s3fs.S3FileSystem(anon=True)
+        # These files contain expected geodetic global grid centroids for a
+        # resolution of 25 km. Based on ftp://sidads.colorado.edu/pub/tools/easegrid/
+        data_lat = zarr.open(
+            s3fs.S3Map(
+                os.path.join(BASE_FILE_LOCATION, "EASE2_M25km.lats.1388x584x1.zarr"),
+                s3=fs,
+            )
+        )[:].reshape((584, 1388))
+        data_lon = zarr.open(
+            s3fs.S3Map(
+                os.path.join(BASE_FILE_LOCATION, "EASE2_M25km.lons.1388x584x1.zarr"),
+                s3=fs,
+            )
+        )[:].reshape((584, 1388))
+        ease = EaseGrid(resolution_m=25000, projection="Global")
+        grid_lats, grid_lons = ease.geodetic_grid
+        self.assertTrue(np.isclose(data_lat, grid_lats).all())
+        self.assertTrue(np.isclose(data_lon, grid_lons).all())
 
     def tearDown(self):
         pass
