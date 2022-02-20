@@ -177,7 +177,7 @@ class TestEasepy(TestCase):
 
     @pytest.mark.unit
     def test_ease_grid_agreement_36km(self):
-        fs = s3fs.S3FileSystem(anon=True)
+        fs = s3fs.S3FileSystem(anon=False)
         # These files contain expected geodetic global grid centroids for a
         # resolution of 36 km. Based on ftp://sidads.colorado.edu/pub/tools/easegrid/
         data_lat = zarr.open(
@@ -199,7 +199,7 @@ class TestEasepy(TestCase):
 
     @pytest.mark.unit
     def test_ease_grid_agreement_25km(self):
-        fs = s3fs.S3FileSystem(anon=True)
+        fs = s3fs.S3FileSystem(anon=False)
         # These files contain expected geodetic global grid centroids for a
         # resolution of 25 km. Based on ftp://sidads.colorado.edu/pub/tools/easegrid/
         data_lat = zarr.open(
