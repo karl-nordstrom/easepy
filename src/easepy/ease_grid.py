@@ -153,7 +153,8 @@ class EaseGrid(object):
         typing.Tuple[np.ndarray, np.ndarray], typing.Tuple[np.ndarray, np.ndarray]
     ]:
         """
-        Function to find corresponding EASE coordinates and grid index for given lat/lon point
+        Function to find corresponding EASE coordinates and grid index for given
+        lat/lon point.
 
         Parameters
         ----------
@@ -164,8 +165,8 @@ class EaseGrid(object):
         Returns
         -------
         ease_coords : tuple[xcol_id, yrow_id], tuple[xx, yy]
-            EASE grid indices of the point(s), and corresponding EASE projection coordinates.
-            Take same shape as input values.
+            EASE grid indices of the point(s), and corresponding EASE projection
+            coordinates. Take same shape as input values.
         """
 
         if (np.abs(np.array([lat])) > 90.0).any():
@@ -220,7 +221,7 @@ class EaseGrid(object):
     ) -> typing.Tuple[np.ndarray, np.ndarray]:
         """
         Function to find corresponding lat/lon point for given EASE grid index
-        pair Valid only if the projection and resolution used are the same.
+        pair. Valid only if the projection and resolution used are the same.
         Returns the location of the approximate midpoint of the grid cell.
 
         Parameters
