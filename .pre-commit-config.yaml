@@ -10,8 +10,6 @@ repos:
       - id: check-added-large-files
       - id: check-json
       - id: check-merge-conflict
-      - id: no-commit-to-branch
-        args: ["-b", "main"]
 
   - repo: https://github.com/pre-commit/mirrors-isort
     rev: v5.9.1
