@@ -6,6 +6,7 @@
 
 A python package for working with EASE grids in geodetic coordinates.
 The documentation is available at https://easepy.readthedocs.io/en/latest/.
+The code is available at https://github.com/karl-nordstrom/easepy.
 
 Installation
 ------------
